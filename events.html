@@ -3,18 +3,26 @@
 <head>
     <title>Expo Events</title>
     <link rel="stylesheet" href="Styles/events.css">
+    <link rel="stylesheet" href="Styles/auth.css">
+    <script src="Scripts/auth.js"></script>
     <script src="Scripts/events.js"></script>
 </head>
 <body>
 
 <header>
     <h1>Events</h1>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="cars.html">Cars</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="events.html">Events</a>
-        <a href="contact.html">Contact</a>
+    <nav class="main-nav">
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="cars.html">Cars</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="events.html">Events</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <button id="registerBtn">Sign in</button>
+            <button id="loginBtn">Log in</button>
+        </div>
     </nav>
 </header>
 
@@ -51,14 +59,6 @@
                 <li>Networking sessions</li>
                 <li>Hands-on workshops</li>
             </ul>
-        </div>
-
-        <div class="card" style="margin-top:20px;">
-            <h2>Registration</h2>
-            <p>Secure your spot today and be part of the future of technology.</p>
-            <button onclick="alert('Registration coming soon!')">
-                Register Now
-            </button>
         </div>
 
     </section>

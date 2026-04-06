@@ -52,10 +52,25 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (isValid) {
-
-      showSuccessMessage();
-      form.reset();
-
+      fetch('Scripts/data.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          showSuccessMessage();
+          form.reset();
+        } else if (data.errors) {
+          if (data.errors.name) showError('input[name="name"]', data.errors.name);
+          if (data.errors.email) showError('input[name="email"]', data.errors.email);
+          if (data.errors.message) showError('textarea[name="message"]', data.errors.message);
+        }
+      })
+      .catch(() => {
+        alert('There was a problem sending your message.');
+      });
     }
   });
 
