@@ -159,7 +159,7 @@
       formData.append('email', email);
       formData.append('password', password);
 
-      fetch('signin.php', {
+      fetch('Backend/signin.php', {
         method: 'POST',
         body: formData
       })
@@ -206,7 +206,7 @@
       formData.append('email', email);
       formData.append('password', password);
 
-      fetch('login.php', {
+      fetch('Backend/login.php', {
         method: 'POST',
         body: formData
       })
