@@ -1,4 +1,5 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 // Database connection details
 $servername = "localhost";
 $username = "root"; // Or your database username

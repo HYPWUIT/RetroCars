@@ -261,7 +261,6 @@
     const navActions = document.querySelector('.nav-actions');
     navActions.innerHTML = `
       <div class="user-profile">
-        <img src="Images/user-icon.png" alt="User" class="user-icon">
         <span>${username}</span>
         <button id="signOutBtn">Sign Out</button>
       </div>
