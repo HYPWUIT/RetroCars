@@ -110,7 +110,8 @@
       return;
     }
 
-    submitReg.onclick = function () {
+    submitReg.onclick = function (event) {
+      event.preventDefault(); // Prevent form from submitting and reloading the page
       const surname = document.getElementById("reg-surname").value.trim();
       const name = document.getElementById("reg-name").value.trim();
       const email = document.getElementById("reg-email").value.trim();
@@ -140,8 +141,8 @@
         document.getElementById("reg-email").style.borderColor = "red";
         return;
       }
-      if (password.length < 6) {
-        errorBox.textContent = "Password must be at least 6 characters.";
+      if (password.length < 8) {
+        errorBox.textContent = "Password must be at least 8 characters.";
         document.getElementById("reg-password").style.borderColor = "red";
         return;
       }
