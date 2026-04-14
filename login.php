@@ -15,12 +15,12 @@ if ($conn->connect_error) {
 
 // Get data from form
 $email = $_POST['email'];
-// Note: No password check is performed as there is no password column in the database.
-// This is insecure and should be fixed by adding a password column to the event_clients table.
+$password_plain = $_POST['password'];
+$password_hashed = sha1($password_plain);
 
 // Prepare and bind
-$stmt = $conn->prepare("SELECT * FROM event_clients WHERE email = ?");
-$stmt->bind_param("s", $email);
+$stmt = $conn->prepare("SELECT * FROM event_clients WHERE email = ? AND password = ?");
+$stmt->bind_param("ss", $email, $password_hashed);
 
 // Execute the statement
 $stmt->execute();

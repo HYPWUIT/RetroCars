@@ -157,6 +157,7 @@
       formData.append('surname', surname);
       formData.append('name', name);
       formData.append('email', email);
+      formData.append('password', password);
 
       fetch('signin.php', {
         method: 'POST',
@@ -203,6 +204,7 @@
 
       const formData = new FormData();
       formData.append('email', email);
+      formData.append('password', password);
 
       fetch('login.php', {
         method: 'POST',
