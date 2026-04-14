@@ -165,9 +165,16 @@
       })
       .then(response => response.text())
       .then(data => {
-        console.log(data);
-        closeModal();
-        showToast(`Thanks, ${surname} ${name}! Your Expo account is ready.`);
+        if (data.trim() === "New record created successfully") {
+          closeModal();
+          showToast(`Thanks, ${surname} ${name}! Your Expo account is ready.`);
+        } else if (data.trim() === "A user with this email is already registered") {
+          errorBox.textContent = data;
+          document.getElementById("reg-email").style.borderColor = "red";
+        } else {
+          console.error('Error from PHP:', data);
+          errorBox.textContent = "Something went wrong. Please try again.";
+        }
       })
       .catch(error => {
         console.error('Error:', error);
