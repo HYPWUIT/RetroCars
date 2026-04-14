@@ -2,7 +2,7 @@
 // Database connection details
 $servername = "localhost";
 $username = "root"; // Or your database username
-$password = ""; // Or your database password
+$password = "Zoro"; // Or your database password
 $dbname = "rc_expo_clients";
 
 // Create connection
