@@ -152,8 +152,25 @@
         return;
       }
 
-      closeModal();
-      showToast(`Thanks, ${surname} ${name}! Your Expo account is ready.`);
+      const formData = new FormData();
+      formData.append('surname', surname);
+      formData.append('name', name);
+      formData.append('email', email);
+
+      fetch('signin.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(data => {
+        console.log(data);
+        closeModal();
+        showToast(`Thanks, ${surname} ${name}! Your Expo account is ready.`);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        errorBox.textContent = "Something went wrong. Please try again.";
+      });
     };
   }
 
@@ -183,12 +200,26 @@
         return;
       }
 
-      if (email === "admin@example.com" && password === "password") {
-        closeModal();
-        showToast("Log in successful!");
-      } else {
-        errorBox.textContent = "Invalid email or password.";
-      }
+      const formData = new FormData();
+      formData.append('email', email);
+
+      fetch('login.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(data => {
+        if (data === "Login successful") {
+          closeModal();
+          showToast("Log in successful!");
+        } else {
+          errorBox.textContent = "Invalid email or password.";
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        errorBox.textContent = "Something went wrong. Please try again.";
+      });
     };
   }
 

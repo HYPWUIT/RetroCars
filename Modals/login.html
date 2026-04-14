@@ -1,13 +1,15 @@
 <div class="auth-modal__content">
-  <h2>Log in</h2>
-  <p class="auth-modal__subtitle">Access your Expo account.</p>
+  <form id="login-form">
+    <h2>Log in</h2>
+    <p class="auth-modal__subtitle">Access your Expo account.</p>
 
-  <label for="login-email">Gmail</label>
-  <input id="login-email" type="email" placeholder="john@gmail.com">
+    <label for="login-email">Email</label>
+    <input id="login-email" type="email" placeholder="john@example.com">
 
-  <label for="login-password">Password</label>
-  <input id="login-password" type="password" placeholder="Password">
+    <label for="login-password">Password</label>
+    <input id="login-password" type="password" placeholder="Password">
 
-  <div id="login-error" class="auth-modal__error"></div>
-  <button id="submitLogin" class="auth-modal__button">Log in</button>
+    <div id="login-error" class="auth-modal__error"></div>
+    <button id="submitLogin" class="auth-modal__button">Log in</button>
+  </form>
 </div>
