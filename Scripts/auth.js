@@ -212,9 +212,12 @@
       })
       .then(response => response.text())
       .then(data => {
-        if (data === "Login successful") {
+        if (data.startsWith("Login successful")) {
+          const username = data.split(':')[1];
+          sessionStorage.setItem('loggedInUser', username);
+          updateNavForLoggedInUser(username);
           closeModal();
-          showToast("Log in successful!");
+          showToast(`Welcome, ${username}!`);
         } else {
           errorBox.textContent = "Invalid email or password.";
         }
@@ -252,5 +255,26 @@
       toast.style.opacity = "0";
       setTimeout(() => toast.remove(), 500);
     }, 4000);
+  }
+
+  function updateNavForLoggedInUser(username) {
+    const navActions = document.querySelector('.nav-actions');
+    navActions.innerHTML = `
+      <div class="user-profile">
+        <img src="Images/user-icon.png" alt="User" class="user-icon">
+        <span>${username}</span>
+        <button id="signOutBtn">Sign Out</button>
+      </div>
+    `;
+    document.getElementById('signOutBtn').addEventListener('click', () => {
+      sessionStorage.removeItem('loggedInUser');
+      window.location.reload();
+    });
+  }
+
+  // Check for logged in user on page load
+  const loggedInUser = sessionStorage.getItem('loggedInUser');
+  if (loggedInUser) {
+    updateNavForLoggedInUser(loggedInUser);
   }
 });

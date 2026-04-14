@@ -27,8 +27,8 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
-    // User exists
-    echo "Login successful";
+    $user = $result->fetch_assoc();
+    echo "Login successful:" . $user['name'];
 } else {
     // User does not exist
     echo "Invalid email or password";
