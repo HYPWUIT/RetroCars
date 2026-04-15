@@ -30,7 +30,7 @@ $ticket_type = 'Standard';
 
 
 // Check if email already exists
-$stmt_check = $conn->prepare("SELECT email FROM event_clients WHERE email = $email");
+$stmt_check = $conn->prepare("SELECT email FROM event_clients WHERE email = ?");
 if ($stmt_check === false) {
     die("Error preparing statement: " . $conn->error);
 }
