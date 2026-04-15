@@ -51,21 +51,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('message', message);
+
     if (isValid) {
-      fetch('Scripts/data.php', {
+      fetch('Backend/contact.php', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, message })
+        body: formData
       })
-      .then(response => response.json())
+      .then(response => response.text())
       .then(data => {
-        if (data.success) {
+        if (data.includes("New record created successfully")) {
           showSuccessMessage();
           form.reset();
-        } else if (data.errors) {
-          if (data.errors.name) showError('input[name="name"]', data.errors.name);
-          if (data.errors.email) showError('input[name="email"]', data.errors.email);
-          if (data.errors.message) showError('textarea[name="message"]', data.errors.message);
+        } else {
+          // Display the error message from the server
+          alert(data);
         }
       })
       .catch(() => {

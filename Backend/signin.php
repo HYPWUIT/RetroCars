@@ -1,13 +1,13 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-// Enable error reporting for debugging
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $servername = "localhost";
-$username = "root"; // Or your database username
-$password = "Zoro"; // Or your database password
+$username = "root"; 
+$password = "Zoro"; 
 $dbname = "rc_expo_clients";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -30,7 +30,7 @@ $ticket_type = 'Standard';
 
 
 // Check if email already exists
-$stmt_check = $conn->prepare("SELECT email FROM event_clients WHERE email = ?");
+$stmt_check = $conn->prepare("SELECT email FROM event_clients WHERE email = ?"); 
 if ($stmt_check === false) {
     die("Error preparing statement: " . $conn->error);
 }
