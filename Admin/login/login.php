@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $admin['password'])) {
             $_SESSION['admin_id']   = $admin['id'];
             $_SESSION['admin_name'] = $admin['name'];
-            echo json_encode(['success' => true, 'redirect' => '../admin.html']);
+            echo json_encode(['success' => true, 'redirect' => '../admin.php']);
             exit;
         }
     }
