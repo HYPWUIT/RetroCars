@@ -1,13 +1,62 @@
 <?php
 session_start();
 
-require_once "includes/db.php";
-
-$public_pages = ['login.php'];
-$current_page = basename($_SERVER['PHP_SELF']);
-
-if (!isset($_SESSION['admin_id']) && !in_array($current_page, $public_pages)) {
-    header('Location: login/login.php');
-    exit;
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: login/login.html');
+    exit();
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="admin.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<div class="admin-wrapper">
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-cogs"></i> Admin Panel</h2>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#dashboard" class="sidebar-link active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="#contacts" class="sidebar-link"><i class="fas fa-address-book"></i> Contacts</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="../index.html" class="sidebar-link"><i class="fas fa-home"></i> Home Site</a>
+            <a href="/Admin/login/login.html" id="logout-link-admin" class="sidebar-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </aside>
+
+    <main class="admin-main-content">
+        <div id="dashboard" class="admin-section">
+            <h1>Dashboard</h1>
+            <div class="user-stats">
+                <h2>Registered Users</h2>
+                <p>Total Users: <span id="total-users">0</span></p>
+                <div id="user-list"></div>
+            </div>
+        </div>
+        <div id="contacts" class="admin-section" style="display: none;">
+            <h1>Contacts</h1>
+            <div class="contact-stats">
+                <h2>Contact Messages</h2>
+                <p>Total Messages: <span id="total-contacts">0</span></p>
+                <div id="contact-list"></div>
+            </div>
+        </div>
+        <div id="gallery" class="admin-section" style="display: none;">
+            <h1>Gallery Management</h1>
+            <p>Here you can add, edit, or delete images from the gallery.</p>
+            
+        </div>
+    </main>
+</div>
+
+<script src="admin.js"></script>
+
+</body>
+</html>

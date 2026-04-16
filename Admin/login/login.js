@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = '../admin.html'; // Redirect to admin page
+                    window.location.href = '../admin.php'; // Redirect to admin page
                 } else {
                     errorDiv.textContent = data.message || 'Invalid email or password.';
                     emailInput.style.borderColor = 'red';
