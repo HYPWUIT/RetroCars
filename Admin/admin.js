@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = '../login/login.html';
+                    window.location.href = '../login/login.php';
                 } else {
                     alert('Logout failed. Please try again.');
                 }
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function fetchUsers() {
-        fetch('../Backend/get_users.php')
+        fetch('get_users.php')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
