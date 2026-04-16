@@ -1,8 +1,8 @@
 <?php
-
+header('Content-Type: application/json');
 include 'includes/db.php';
 
-$sql = "SELECT id, name, surname, ticket_type, email, password FROM event_clients";
+$sql = "SELECT id, gmail, message, name FROM contacts";
 $result = $conn->query($sql);
 
 if (!$result) {
@@ -12,15 +12,15 @@ if (!$result) {
     exit();
 }
 
-$users = array();
+$contacts = array();
 
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-        $users[] = $row;
+        $contacts[] = $row;
     }
 }
 
-echo json_encode($users);
+echo json_encode($contacts);
 
 $conn->close();
 ?>

@@ -20,7 +20,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if (targetId === '#dashboard') {
-            fetchUsers();
+            setTimeout(fetchUsers, 500);
+        }
+        if (targetId === '#contacts') {
+            fetchContacts();
         }
     }
 
@@ -55,8 +58,51 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function fetchContacts() {
+        fetch('/Admin/get_contacts.php?v=' + new Date().getTime(), {
+            method: 'GET'
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const totalContacts = document.getElementById('total-contacts');
+                const contactList = document.getElementById('contact-list');
+
+                if (data.error) {
+                    console.error('Error fetching contacts:', data.error);
+                    contactList.innerHTML = `<p>Error fetching contacts: ${data.error}</p>`;
+                    return;
+                }
+
+                totalContacts.textContent = data.length;
+
+                if (data.length === 0) {
+                    contactList.innerHTML = '<p>No contacts found.</p>';
+                    return;
+                }
+
+                let table = '<table><thead><tr><th>ID</th><th>Gmail</th><th>Name</th><th>Message</th></tr></thead><tbody>';
+                data.forEach(contact => {
+                    table += `<tr><td>${contact.id}</td><td>${contact.gmail}</td><td>${contact.name}</td><td>${contact.message}</td></tr>`;
+                });
+                table += '</tbody></table>';
+                contactList.innerHTML = table;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                const contactList = document.getElementById('contact-list');
+                contactList.innerHTML = `<p>Failed to load contact data. Error: ${error.message}. Please check the console for more details.</p>`;
+            });
+    }
+
     function fetchUsers() {
-        fetch('get_users.php')
+        fetch('/Admin/get_users.php?v=', {
+            method: 'GET'
+        })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -80,9 +126,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
 
-                let table = '<table><thead><tr><th>ID</th><th>Name</th><th>Surname</th><th>Email</th><th>Ticket Type</th></tr></thead><tbody>';
+                let table = '<table><thead><tr><th>ID</th><th>Name</th><th>Surname</th><th>Ticket Type</th><th>Email</th><th>Password</th></tr></thead><tbody>';
                 data.forEach(user => {
-                    table += `<tr><td>${user.id}</td><td>${user.name}</td><td>${user.surname}</td><td>${user.email}</td><td>${user.ticket_type}</td></tr>`;
+                    table += `<tr><td>${user.id}</td><td>${user.name}</td><td>${user.surname}</td><td>${user.ticket_type}</td><td>${user.email}</td><td>${user.password}</td></tr>`;
                 });
                 table += '</tbody></table>';
                 userList.innerHTML = table;
@@ -90,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => {
                 console.error('Error:', error);
                 const userList = document.getElementById('user-list');
-                userList.innerHTML = `<p>Failed to load user data. Please check the console for more details.</p>`;
+                userList.innerHTML = `<p>Failed to load user data. Error: ${error.message}. Please check the console for more details.</p>`;
             });
     }
 
