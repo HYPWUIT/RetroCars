@@ -37,8 +37,21 @@ document.addEventListener('DOMContentLoaded', function() {
     if (logoutLink) {
         logoutLink.addEventListener('click', function(e) {
             e.preventDefault();
-            alert("You have been 'logged out'. Please close your browser to fully clear credentials.");
-            window.location.href = '../index.html';
+            fetch('logout.php', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = '../login/login.html';
+                } else {
+                    alert('Logout failed. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred during logout. Please try again.');
+            });
         });
     }
 
