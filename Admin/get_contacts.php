@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/json');
-include 'includes/db.php';
+require_once 'includes/db.php';
 
 $sql = "SELECT id, gmail, message, name FROM contacts";
 $result = $conn->query($sql);

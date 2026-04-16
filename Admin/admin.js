@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = '../login/login.php';
+                    window.location.href = 'login/login.html';
                 } else {
                     alert('Logout failed. Please try again.');
                 }
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function fetchContacts() {
-        fetch('/Admin/get_contacts.php?v=' + new Date().getTime(), {
+        fetch('/Admin/get_contacts.php?', {
             method: 'GET'
         })
             .then(response => {

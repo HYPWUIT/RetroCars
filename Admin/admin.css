@@ -105,3 +105,19 @@ body {
     background-color: #f4ecd8;
     font-family: 'Cinzel', serif;
 }
+
+.contact-stats table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.contact-stats th, .contact-stats td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.contact-stats th {
+    background-color: #f2f2f2;
+}
