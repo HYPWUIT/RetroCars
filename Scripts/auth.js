@@ -159,7 +159,7 @@
       formData.append('email', email);
       formData.append('password', password);
 
-      fetch('Backend/signin.php', {
+            fetch('Backend/login.php', {
         method: 'POST',
         body: formData
       })
@@ -189,7 +189,8 @@
       return;
     }
 
-    submitLogin.onclick = function () {
+    submitLogin.onclick = function (event) {
+      event.preventDefault(); // Prevent form from submitting and reloading the page
       const email = document.getElementById("login-email").value.trim();
       const password = document.getElementById("login-password").value.trim();
       const errorBox = document.getElementById("login-error");
@@ -209,15 +210,23 @@
         return;
       }
 
-      const formData = new FormData();
-      formData.append('email', email);
-      formData.append('password', password);
+      const bodyParams = new URLSearchParams();
+      bodyParams.append('email', email);
+      bodyParams.append('password', password);
 
       fetch('Backend/login.php', {
         method: 'POST',
-        body: formData
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: bodyParams
       })
-      .then(response => response.text())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Login failed");
+        }
+        return response.text();
+      })
       .then(data => {
         if (data.startsWith("Login successful")) {
           const username = data.split(':')[1];

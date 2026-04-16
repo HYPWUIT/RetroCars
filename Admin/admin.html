@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="../Styles/index.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<header>
+    <h1>Admin Panel</h1>
+    <nav class="main-nav">
+        <div class="nav-links">
+            <a href="../index.html">Home Site</a>
+            <a href="#" id="logout-link-admin">Logout</a>
+        </div>
+    </nav>
+</header>
+
+<div class="admin-wrapper">
+    <aside class="admin-sidebar">
+        <h2>Menu</h2>
+        <a href="#dashboard" class="sidebar-link">Dashboard</a>
+        <a href="#gallery" class="sidebar-link">Gallery Management</a>
+    </aside>
+
+    <main class="admin-main-content">
+        <div id="dashboard" class="admin-section">
+            <h2>Dashboard</h2>
+            <p>Welcome to the admin dashboard. Analytics and summaries will be shown here.</p>
+        </div>
+        <div id="gallery" class="admin-section" style="display: none;">
+            <h2>Gallery Management</h2>
+            <p>Here you can add, edit, or delete images from the gallery.</p>
+            <!-- Gallery management content will go here -->
+        </div>
+    </main>
+</div>
+
+<script src="admin.js"></script>
+<script>
+    // Basic logout functionality for admin
+    document.getElementById('logout-link-admin').addEventListener('click', function(e) {
+        e.preventDefault();
+        // In a real app, you'd call a logout.php script
+        sessionStorage.removeItem('loggedInUser'); // Clear client-side session
+        alert("You have been logged out.");
+        window.location.href = '../index.html'; // Redirect to home page
+    });
+
+    // Basic sidebar navigation
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            document.querySelectorAll('.admin-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(targetId).style.display = 'block';
+        });
+    });
+</script>
+
+</body>
+</html>
